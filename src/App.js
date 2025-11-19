@@ -1,23 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+
+const content = [
+  {
+    word: "React",
+    meaning: "A JavaScript library for building user interfaces.",
+  },
+  {
+    word: "Component",
+    meaning: "A reusable building block in React.",
+  },
+  {
+    word: "State",
+    meaning: "An object that stores data for a component.",
+  },
+];
 
 function App() {
+  const [word, setWord] = useState("");
+  const [definition, setDefinition] = useState("");
+
+  const handleSearch = () => {
+    const found = content.find(
+      (item) => item.word.toLowerCase() === word.toLowerCase()
+    );
+
+    if (found) {
+      setDefinition(found.meaning);
+    } else {
+      setDefinition("No definition found.");
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ width: "400px", margin: "40px auto", fontFamily: "Arial" }}>
+      <h1>Dictionary App</h1>
+
+      <div>
+        <input
+          type="text"
+          placeholder="Search for a word..."
+          value={word}
+          onChange={(e) => setWord(e.target.value)}
+          style={{
+            padding: "8px",
+            width: "250px",
+            marginRight: "10px",
+            border: "1px solid #ccc",
+          }}
+        />
+
+        <button onClick={handleSearch} style={{ padding: "8px 15px" }}>
+          Search
+        </button>
+      </div>
+
+      <h3 style={{ marginTop: "20px" }}>Definition:</h3>
+      <p>{definition}</p>
     </div>
   );
 }
