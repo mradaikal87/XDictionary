@@ -21,6 +21,11 @@ function App() {
   const [definition, setDefinition] = useState("");
 
   const handleSearch = () => {
+    if (!word.trim()) {
+      setDefinition("Word not found in the dictionary.");
+      return;
+    }
+
     const found = content.find(
       (item) => item.word.toLowerCase() === word.toLowerCase()
     );
@@ -28,7 +33,7 @@ function App() {
     if (found) {
       setDefinition(found.meaning);
     } else {
-      setDefinition("No definition found.");
+      setDefinition("Word not found in the dictionary.");
     }
   };
 
@@ -55,7 +60,7 @@ function App() {
         </button>
       </div>
 
-      <h3 style={{ marginTop: "20px" }}>Definition:</h3>
+      <h3>Definition:</h3>
       <p>{definition}</p>
     </div>
   );
